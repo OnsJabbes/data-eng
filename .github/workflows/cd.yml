@@ -22,7 +22,7 @@ jobs:
       - name: Checkout Terraform Repo
         uses: actions/checkout@v4
         with:
-          repository: OnsJabbes/terraform-etl-pipeline-145781f1
+          repository: OnsJabbes/terraform-etl-pipeline-d9a653d6
           token: ${{ secrets.GH_TOKEN }}
           path: terraform
 
@@ -49,7 +49,7 @@ jobs:
         working-directory: terraform/infra
         run: |
           echo "S3_BUCKET_1=$(terraform output -raw scripts_bucket_name)" >> $GITHUB_ENV
-          echo "S3_KEY_1=$(terraform output -raw scripts_test_artifact_s3_uri)" >> $GITHUB_ENV
+          echo "S3_KEY_1=$(terraform output -raw glue_test_script_s3_uri)" >> $GITHUB_ENV
           echo "GLUE_JOB_1=$(terraform output -raw glue_job_name)" >> $GITHUB_ENV
 
 
@@ -71,7 +71,7 @@ jobs:
 
       - name: Upload dependencies to S3
         run: |
-          aws s3 cp dependencies.zip s3://tfstate-etl-pipeline-quzb1ci1/dependencies.zip
+          aws s3 cp dependencies.zip s3://tfstate-etl-pipeline-2o1awxvn/dependencies.zip
 
       - name: Debug S3 path
         run: |
@@ -91,7 +91,7 @@ jobs:
       # ─────────────────────────────
       - name: Trigger Glue Jobs
         run: |
-          CONFIG_BUCKET="tfstate-etl-pipeline-quzb1ci1"
+          CONFIG_BUCKET="tfstate-etl-pipeline-2o1awxvn"
           CONFIG_PATH="s3://${CONFIG_BUCKET}/config.json"
           DEPS_PATH="s3://${CONFIG_BUCKET}/dependencies.zip"
 
