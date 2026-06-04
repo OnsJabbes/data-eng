@@ -237,6 +237,7 @@ def main():
     logger.info("DONE -> %s", uri)
 
 #test 1
+#test 2
 
 
 if __name__ == "__main__":
