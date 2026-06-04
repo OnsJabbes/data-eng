@@ -236,7 +236,7 @@ def main():
     uri = save_to_s3(df_clean, output_bucket, output_key)
     logger.info("DONE -> %s", uri)
 
-#test
+#test 1
 
 
 if __name__ == "__main__":
