@@ -12,6 +12,15 @@ import boto3
 logger = logging.getLogger("sqs_events")
 
 EVENTS_QUEUE = "etl-events"
+DLQ_QUEUE = "etl-events-dlq"
+
+
+def ensure_dead_letter_queue(region: str = "us-east-1") -> str:
+    """Create the SQS dead-letter queue for failed ETL events; return its URL."""
+    sqs = boto3.client("sqs", region_name=region)
+    logger.info("Ensuring SQS dead-letter queue %s", DLQ_QUEUE)
+    resp = sqs.create_queue(QueueName=DLQ_QUEUE)
+    return resp["QueueUrl"]
 
 
 def ensure_events_queue(region: str = "us-east-1") -> str:
